@@ -30,6 +30,19 @@ jobs:
       - name: Validate & build data.json
         run: npm run build:data
 
+      - name: Export PAR XML
+        run: npm run export:par
+
+      - name: Generate PAR HTML (via par_to_xhtml_1.xsl)
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/Peeragogy/PeeragogicalActionReviews/master/par_to_xhtml_1.xsl \
+            -o /tmp/par_to_xhtml_1.xsl
+          mkdir -p site/public/par
+          for f in reports/par/*.xml; do
+            name=$(basename "$f" .xml)
+            xsltproc /tmp/par_to_xhtml_1.xsl "$f" > "site/public/par/${name}.xhtml" 2>/dev/null || true
+          done
+
       - name: Install site dependencies
         working-directory: site
         run: npm install
