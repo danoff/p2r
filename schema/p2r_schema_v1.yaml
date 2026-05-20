@@ -1,0 +1,104 @@
+# P2R Schema v1.0 — Partaker Participation Report
+# Each file documents ONE partaker's OWN perspective for ONE cycle.
+
+version: "1.0"
+description: |
+  The P2R schema defines atomic, sovereign participation records in
+  peeragogical human-AI coordination cycles. Each report MUST describe
+  only the filing partaker's own actions and perspectives.
+
+required_fields:
+  p2r_version:
+    type: string
+    example: "1.0"
+
+  p2r_id:
+    type: string
+    description: Unique ID — recommended format is {cycle_id}-{partaker_id}
+    example: "pvcs-sunset-20260520-cjdanoff"
+
+  cycle_id:
+    type: string
+    example: "pvcs-sunset-20260520"
+
+  timestamp:
+    type: string
+    format: ISO 8601 with timezone offset
+    example: "2026-05-20T16:00:00-05:00"
+
+  partaker_id:
+    type: string
+    description: Unique slug identifier for the reporting partaker
+    example: "cjdanoff"
+
+  type:
+    type: string
+    enum: [human, ai]
+
+  display_name:
+    type: string
+    example: "Charles Jeffrey Danoff"
+
+  model_version:
+    type: string
+    description: AI model version string, or "N/A" for humans
+
+  role_this_cycle:
+    type: string
+
+  intent:
+    type: string
+
+  action_type:
+    type: string
+    enum: [decide, create, review, coordinate, reflect]
+
+  contribution_summary:
+    type: string
+    description: |
+      First-person summary of what the partaker contributed.
+      MUST NOT describe other partakers' contributions.
+
+  learning:
+    type: string
+    description: |
+      SOVEREIGNTY RULE: first-person only. Describes only the filing
+      partaker's own learning. Collective/third-person statements
+      cause build validation to fail.
+
+  pattern_refs:
+    type: object
+    properties:
+      selected: { type: array, items: string }
+      revised:  { type: array, items: string }
+      proposed: { type: array, items: string }
+
+  precision_update:
+    type: object
+    properties:
+      breadth_delta:     { type: number }
+      reliability_delta: { type: number }
+      rationale:         { type: string }
+
+  sovereignty_attestation:
+    type: boolean
+    must_equal: true
+    description: |
+      REQUIRED true. Files where this is false or absent are rejected
+      by the build pipeline.
+
+  attestation_text:
+    type: string
+
+optional_fields:
+  artifact_produced:
+    type: object
+    properties:
+      uri: { type: string }
+
+  evidence:
+    type: array
+    items:
+      type: object
+      properties:
+        uri: { type: string }
