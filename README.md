@@ -1,3 +1,4 @@
+Below was written by Claude Code mainly. - Charlie 21 May 2026
 # p2r
 
 **Partaker Participation Review** — A YAML-first framework for atomic, sovereign participation reporting in human-AI coordination cycles.
